@@ -24,5 +24,5 @@ export type SimpleParam = {
   type: SimpleType | SimpleEnum | SimpleObject | SimpleArray
   description: string
   required: boolean
-  defaultValue: string
+  defaultValue?: string
 }
