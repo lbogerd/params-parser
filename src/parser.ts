@@ -399,39 +399,40 @@ export class ParamsParser {
 
         // Look for interface or type alias declarations
         for (const declaration of declarations) {
-          if (declaration.getKind() === SyntaxKind.InterfaceDeclaration) {
-            const interfaceDecl = declaration.asKind(
-              SyntaxKind.InterfaceDeclaration,
-            )!
-            interfaceDecl.getProperties().forEach((prop) => {
-              if (prop.getKind() === SyntaxKind.PropertySignature) {
-                const propSignature = prop as PropertySignature
-                const propName = propSignature.getName()
-                const propTypeNode = propSignature.getTypeNode()
-                const defaultType: SimpleType = { type: 'string' }
-                const propType:
-                  | SimpleType
-                  | SimpleEnum
-                  | SimpleObject
-                  | SimpleArray = propTypeNode
-                  ? this.parseTypeNode(propTypeNode) || defaultType
-                  : defaultType
+          if (declaration.getKind() !== SyntaxKind.InterfaceDeclaration)
+            continue
 
-                properties[propName] = {
-                  name: propName,
-                  type: propType,
-                  description: '',
-                  required: !propSignature.hasQuestionToken(),
-                  defaultValue: '',
-                }
-              }
-            })
+          const interfaceDecl = declaration.asKind(
+            SyntaxKind.InterfaceDeclaration,
+          )
 
-            if (Object.keys(properties).length > 0) {
-              return {
-                type: 'object',
-                properties,
-              }
+          if (!interfaceDecl) continue
+
+          for (const prop of interfaceDecl.getProperties()) {
+            if (prop.getKind() !== SyntaxKind.PropertySignature) continue
+
+            const propSignature = prop
+            const propName = propSignature.getName()
+            const propTypeNode = propSignature.getTypeNode()
+
+            const defaultType: SimpleType = { type: 'string' }
+            const propType = propTypeNode
+              ? this.parseTypeNode(propTypeNode) || defaultType
+              : defaultType
+
+            properties[propName] = {
+              name: propName,
+              type: propType,
+              description: '',
+              required: !propSignature.hasQuestionToken(),
+              defaultValue: propSignature.getInitializer()?.getText(),
+            }
+          }
+
+          if (Object.keys(properties).length > 0) {
+            return {
+              type: 'object',
+              properties,
             }
           }
         }
