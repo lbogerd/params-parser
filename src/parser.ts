@@ -15,7 +15,7 @@ import type {
   SimpleObject,
   SimpleParam,
   SimpleType,
-} from './types.js'
+} from './types'
 
 export interface ParseOptions {
   includeJsDoc?: boolean
@@ -222,10 +222,13 @@ export class ParamsParser {
     switch (kind) {
       case SyntaxKind.StringKeyword:
         return { type: 'string' }
+
       case SyntaxKind.NumberKeyword:
         return { type: 'number' }
+
       case SyntaxKind.BooleanKeyword:
         return { type: 'boolean' }
+
       case SyntaxKind.ArrayType: {
         const arrayType = typeNode.asKind(SyntaxKind.ArrayType)!
         const elementType:
@@ -235,6 +238,7 @@ export class ParamsParser {
           | SimpleArray = this.parseTypeNode(
           arrayType.getElementTypeNode(),
         ) || { type: 'string' }
+
         return {
           type: 'array',
           items: [
@@ -268,6 +272,7 @@ export class ParamsParser {
               | SimpleArray = this.parseTypeNode(typeArgs[0]) || {
               type: 'string',
             }
+
             return {
               type: 'array',
               items: [

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ParamsParser, parseContent, parseFile } from '../src/index.js'
+import { ParamsParser, parseContent, parseFile } from '../src/index'
 
 describe('params-parser integration', () => {
   it('should export all required functionality', () => {

@@ -1,3 +1,3 @@
-export * from './types.js'
-export * from './parser.js'
-export { ParamsParser, parseContent, parseFile } from './parser.js'
+export * from './types'
+export * from './parser'
+export { ParamsParser, parseContent, parseFile } from './parser'

@@ -1,7 +1,7 @@
 import { unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { parseFile } from '../src/parser.js'
+import { parseFile } from '../src/parser'
 
 describe('File Parsing', () => {
   const testDir = './tests/fixtures'

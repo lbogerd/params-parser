@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { ParamsParser, parseContent, parseFile } from '../src/parser.js'
-import type { SimpleArray, SimpleObject } from '../src/types.js'
+import { ParamsParser, parseContent, parseFile } from '../src/parser'
+import type { SimpleArray, SimpleObject } from '../src/types'
 
 describe('ParamsParser', () => {
   let parser: ParamsParser

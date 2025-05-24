@@ -5,7 +5,7 @@ import type {
   SimpleObject,
   SimpleParam,
   SimpleType,
-} from '../src/types.js'
+} from '../src/types'
 
 describe('Type Definitions', () => {
   describe('SimpleType', () => {
